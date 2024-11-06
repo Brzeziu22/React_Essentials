@@ -1,9 +1,11 @@
+import { useState } from 'react';
+
 import Header from './components/Header/Header';
 import CoreConcept from './components/CoreConcept/CoreConcept';
 import TabButton from './components/Button/Button';
 
 import componentImg from './assets/components.png';
-import { CORE_CONCEPTS } from './data';
+import { CORE_CONCEPTS,EXAMPLES } from './data';
 
 
 
@@ -11,8 +13,11 @@ import { CORE_CONCEPTS } from './data';
 
 
 function App() {
+
+  const [selectedTopic,setSelectedTopic]=useState('Components');
+  let dynamicExamplesContent='Select sub category'
   function handleClick(selectedButton){
-    console.log(selectedButton)
+    setSelectedTopic(selectedButton);
 }
   return (
     <div>
@@ -28,11 +33,24 @@ function App() {
         <section id='examples'>
           <h2>Examples</h2>
           <menu>
-            <TabButton onClick={handleClick}>Components</TabButton> {/* passing function to child component without any arguments so we can add arguments in chlid component*/}
+            <TabButton onClick={handleClick}>Components</TabButton>
             <TabButton onClick={handleClick}>JSX</TabButton>
             <TabButton onClick={handleClick}>Props</TabButton>
             <TabButton onClick={handleClick}>State</TabButton>
           </menu>
+          <div id='tab-content'>
+            <h3>
+              {EXAMPLES[selectedTopic].title}
+            </h3>
+            <p>
+            {EXAMPLES[selectedTopic].description}
+            </p>
+            <pre>
+              <code>
+              {EXAMPLES[selectedTopic].code}
+              </code>
+            </pre>
+          </div>
         </section>
       </main>
     </div>
