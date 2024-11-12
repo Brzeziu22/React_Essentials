@@ -14,10 +14,10 @@ import { CORE_CONCEPTS,EXAMPLES } from './data';
 
 function App() {
 
-  const [selectedTopic,setSelectedTopic]=useState('Components');
+  const [selectedTopic,setSelectedTopic]=useState();
   let dynamicExamplesContent='Select sub category'
   function handleClick(selectedButton){
-    setSelectedTopic(selectedButton);
+    setSelectedTopic(selectedButton);{/**seting state value depending on what button was clicked */}
 }
   return (
     <div>
@@ -33,14 +33,14 @@ function App() {
         <section id='examples'>
           <h2>Examples</h2>
           <menu>
-            <TabButton onClick={handleClick}>Components</TabButton>
-            <TabButton onClick={handleClick}>JSX</TabButton>
-            <TabButton onClick={handleClick}>Props</TabButton>
-            <TabButton onClick={handleClick}>State</TabButton>
+            <TabButton isSelected={selectedTopic} onClick={handleClick}>Components</TabButton>
+            <TabButton isSelected={selectedTopic} onClick={handleClick}>JSX</TabButton>
+            <TabButton isSelected={selectedTopic} onClick={handleClick}>Props</TabButton>
+            <TabButton isSelected={selectedTopic} onClick={handleClick}>State</TabButton>
           </menu>
-          <div id='tab-content'>
+          {!selectedTopic ? <p>Select a Topic</p> :<div id='tab-content'> {/* if ? true : false*/}
             <h3>
-              {EXAMPLES[selectedTopic].title}
+              {EXAMPLES[selectedTopic].title}{/*Set dynamic content based on object names from data.js */}
             </h3>
             <p>
             {EXAMPLES[selectedTopic].description}
@@ -50,7 +50,8 @@ function App() {
               {EXAMPLES[selectedTopic].code}
               </code>
             </pre>
-          </div>
+          </div>}
+          
         </section>
       </main>
     </div>
